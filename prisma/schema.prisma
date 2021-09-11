@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  name       String?
+  cpf        String    @unique
+  password   String
+  Control    Control[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now()) @updatedAt
+
+  @@map("users")
+}
+
+model Control {
+  id                   Int      @id @default(autoincrement())
+  data_abastecimento   DateTime
+  horario              DateTime
+  numero_abastecimento Int
+  placa                String
+  unidade              String
+  km                   Int
+  litros               Float
+  valor                Decimal
+  created_at           DateTime @default(now())
+  updated_at           DateTime @default(now()) @updatedAt
+
+  User   User? @relation(fields: [userId], references: [id])
+  userId Int
+  @@map("controls")
+}

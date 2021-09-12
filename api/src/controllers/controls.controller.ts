@@ -31,24 +31,26 @@ class controlsController {
       litros,
       valor
     } = request.body;
-
+      
     try {
       const data = await client.control.create({
         data: {
           data_abastecimento,
           horario,
-          numero_abastecimento,
+          numero_abastecimento: Number(numero_abastecimento),
           placa,
           unidade,
-          km,
-          litros,
-          valor,
+          km: Number(km),
+          litros:parseFloat(litros),
+          valor: parseFloat(valor),
           userId: request.userId
         },
       })
       return response.json({ err: false, data, message: SUCCESS_MESSAGE() })
 
     } catch (error) {
+      console.log(error);
+      
       return response.json({ err: true, error, message: ERROR_MESSAGE() })
     }
   }

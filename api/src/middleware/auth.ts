@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import { decode, verify } from "jsonwebtoken"
+import { ERROR_JWT } from "../utils/message"
 
 const Auth = (request: Request, response: Response, next: NextFunction) => {
 
   const authHeader = request.headers.authorization;
-  if (!authHeader) return response.json({ message: "No token provided" });
+  if (!authHeader) return response.json({ err: true, jwt: true, message: ERROR_JWT() })
 
   const [, token] = authHeader.split(" ");
   try {
@@ -14,7 +15,7 @@ const Auth = (request: Request, response: Response, next: NextFunction) => {
 
     return next();
   } catch (error) {
-    return response.json({ error: "token inválido." })
+    return response.json({ err: true, jwt: true, message: ERROR_JWT() })
   }
 }
 

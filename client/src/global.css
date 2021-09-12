@@ -1,0 +1,17 @@
+html, body, #root {
+  min-height: 100%;
+}
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+
+@-ms-viewport     { width: device-width; }
+@-o-viewport      { width: device-width; }
+@viewport         { width: device-width; }
